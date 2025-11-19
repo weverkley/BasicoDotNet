@@ -1,6 +1,8 @@
-﻿namespace Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Entities
+﻿using Bernhoeft.GRT.Teste.Domain.Base;
+
+namespace Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Entities
 {
-    public partial class AvisoEntity
+    public partial class AvisoEntity : BaseAuditableEntity
     {
         public int Id { get; private set; }
         public bool Ativo { get; set; } = true;
