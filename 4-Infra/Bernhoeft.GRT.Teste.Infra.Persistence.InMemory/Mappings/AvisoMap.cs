@@ -1,8 +1,9 @@
-﻿using Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Entities;
+﻿using Bernhoeft.GRT.Teste.Domain.Entities;
+using Bernhoeft.GRT.Teste.Infra.Persistence.InMemory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Mappings
+namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Mappings
 {
     public partial class AvisoMap : IEntityTypeConfiguration<AvisoEntity>
     {
@@ -15,6 +16,9 @@ namespace Bernhoeft.GRT.ContractWeb.Infra.Persistence.SqlServer.ContractStore.Ma
             builder.Property(x => x.Ativo).HasColumnName(@"ativo").HasColumnType("bit").IsRequired();
             builder.Property(x => x.Titulo).HasColumnName(@"titulo").HasColumnType("varchar(50)").IsRequired().IsUnicode(false).HasMaxLength(50);
             builder.Property(x => x.Mensagem).HasColumnName(@"mensagem").HasColumnType("text(2147483647)").IsRequired().IsUnicode(false).HasMaxLength(2147483647);
+            builder.Property(x => x.CriadoEm).HasColumnName(@"criado_em").HasColumnType("date").IsRequired().IsUnicode(false).HasMaxLength(2147483647);
+            builder.Property(x => x.AtualizadoEm).HasColumnName(@"atualizado_em").HasColumnType("date").IsRequired();
+            builder.Property(x => x.DeletadoEm).HasColumnName(@"deletado_em").HasColumnType("date").IsRequired();
 
             InitializePartial(builder);
         }

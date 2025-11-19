@@ -1,6 +1,6 @@
 ﻿using Bernhoeft.GRT.Teste.Domain.Base;
 
-namespace Bernhoeft.GRT.ContractWeb.Domain.SqlServer.ContractStore.Entities
+namespace Bernhoeft.GRT.Teste.Domain.Entities
 {
     public partial class AvisoEntity : BaseAuditableEntity, ISoftDelete
     {
