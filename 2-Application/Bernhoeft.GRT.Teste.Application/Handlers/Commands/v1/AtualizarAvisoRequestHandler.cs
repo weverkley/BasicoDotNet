@@ -3,7 +3,6 @@ using Bernhoeft.GRT.Core.Interfaces.Results;
 using Bernhoeft.GRT.Core.Models;
 using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Responses.Commands.v1;
-using Bernhoeft.GRT.Teste.Application.Responses.Queries.v1;
 using Bernhoeft.GRT.Teste.Domain.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +26,7 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
             if (entity == null)
                 return OperationResult<AtualizarAvisoResponse>.ReturnNoContent();
 
-            entity.Titulo = request.Titulo;
             entity.Mensagem = request.Mensagem;
-            entity.Ativo = request.Ativo;
 
             await _avisoRepository.AtualizarAsync(entity, cancellationToken);
 

@@ -21,13 +21,13 @@ namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Repositories
         public Task<List<AvisoEntity>> ObterTodosAvisosAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
         {
             var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
-            return query.Where(x => x.Ativo == true && x.DeletadoEm == null).ToListAsync();
+            return query.Where(x => x.Ativo && x.DeletadoEm == null).ToListAsync();
         }
 
         public Task<AvisoEntity> ObterAvisoPorIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
         {
             var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
-            return query.Where(x => x.Id == id && x.DeletadoEm == null).FirstOrDefaultAsync();
+            return query.Where(x => x.Id == id && x.Ativo && x.DeletadoEm == null).FirstOrDefaultAsync();
         }
 
         public async Task<AvisoEntity> CadastrarAsync(string Titulo, string Mensagem, bool Ativo, CancellationToken cancellationToken)

@@ -13,10 +13,14 @@ namespace Bernhoeft.GRT.Teste.Domain.Entities
 
         public void Delete()
         {
+            Ativo = false;
             DeletadoEm = DateTime.UtcNow;
         }
 
-        public void UndoDelete() => DeletadoEm = null;
-
+        public void UndoDelete()
+        {
+            Ativo = true;
+            DeletadoEm = null;
+        }
     }
 }
