@@ -18,19 +18,19 @@ namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Repositories
             _context = context;
         }
 
-        public Task<List<AvisoEntity>> GetAllAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
+        public Task<List<AvisoEntity>> ObterTodosAvisosAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
         {
             var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
             return query.Where(x => x.Ativo == true && x.DeletadoEm == null).ToListAsync();
         }
 
-        public Task<AvisoEntity> GetByIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
+        public Task<AvisoEntity> ObterAvisoPorIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default)
         {
             var query = tracking is TrackingBehavior.NoTracking ? Set.AsNoTrackingWithIdentityResolution() : Set;
             return query.Where(x => x.Id == id && x.DeletadoEm == null).FirstOrDefaultAsync();
         }
 
-        public Task<AvisoEntity> Create(string Titulo, string Mensagem, bool Ativo, CancellationToken cancellationToken)
+        public async Task<AvisoEntity> CadastrarAsync(string Titulo, string Mensagem, bool Ativo, CancellationToken cancellationToken)
         {
             var entity = new AvisoEntity
             {
@@ -41,29 +41,29 @@ namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Repositories
                 AtualizadoEm = DateTime.Now
             };
 
-            var data = AddAsync(entity, cancellationToken);
+            var data = await AddAsync(entity, cancellationToken);
 
-            _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return data;
         }
 
-        public AvisoEntity UpdateAsync(AvisoEntity entity, CancellationToken cancellationToken)
+        public async Task<AvisoEntity> AtualizarAsync(AvisoEntity entity, CancellationToken cancellationToken)
         {
             var data = Update(entity);
 
-           _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return data;
         }
 
-        public AvisoEntity DeleteAsync(AvisoEntity entity, CancellationToken cancellationToken)
+        public async Task<AvisoEntity> DeletarAsync(AvisoEntity entity, CancellationToken cancellationToken)
         {
             entity.Delete();
 
             var data = Update(entity);
 
-           _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return data;
         }

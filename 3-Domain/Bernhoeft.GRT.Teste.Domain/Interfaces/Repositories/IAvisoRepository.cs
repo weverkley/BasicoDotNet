@@ -6,10 +6,10 @@ namespace Bernhoeft.GRT.Teste.Domain.Interfaces.Repositories
 {
     public interface IAvisoRepository : IRepository<AvisoEntity>
     {
-        Task<List<AvisoEntity>> GetAllAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default);
-        Task<AvisoEntity> GetByIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default);
-        Task<AvisoEntity> Create(string Titulo, string Mensagem, bool Ativo, CancellationToken cancellationToken);
-        AvisoEntity UpdateAsync(AvisoEntity entity, CancellationToken cancellationToken);
-        AvisoEntity DeleteAsync(AvisoEntity entity, CancellationToken cancellationToken);
+        Task<List<AvisoEntity>> ObterTodosAvisosAsync(TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default);
+        Task<AvisoEntity> ObterAvisoPorIdAsync(int id, TrackingBehavior tracking = TrackingBehavior.Default, CancellationToken cancellationToken = default);
+        Task<AvisoEntity> CadastrarAsync(string Titulo, string Mensagem, bool Ativo, CancellationToken cancellationToken);
+        Task<AvisoEntity> AtualizarAsync(AvisoEntity entity, CancellationToken cancellationToken);
+        Task<AvisoEntity> DeletarAsync(AvisoEntity entity, CancellationToken cancellationToken);
     }
 }
