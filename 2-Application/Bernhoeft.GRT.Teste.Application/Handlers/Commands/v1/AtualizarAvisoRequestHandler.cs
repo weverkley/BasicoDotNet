@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Responses.Commands.v1;
+using Bernhoeft.GRT.Core.Enums;
 
 namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 {
@@ -17,17 +18,23 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 
         public async Task<IOperationResult<AtualizarAvisoResponse>> Handle(AtualizarAvisoRequest request, CancellationToken cancellationToken)
         {
-            var result = await _avisoRepository.CadastrarAsync(request.Titulo, request.Mensagem, request.Ativo, cancellationToken);
-            if (result != null)
+            var entity = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.Default);
+            if (entity == null)
                 return OperationResult<AtualizarAvisoResponse>.ReturnNoContent();
+
+            entity.Titulo = request.Titulo;
+            entity.Mensagem = request.Mensagem;
+            entity.Ativo = request.Ativo;
+
+            await _avisoRepository.AtualizarAsync(entity, cancellationToken);
 
             return OperationResult<AtualizarAvisoResponse>.ReturnOk(new AtualizarAvisoResponse
             {
-                Id = result.Id,
-                Titulo = result.Titulo,
-                Ativo = result.Ativo,
-                CriadoEm = result.CriadoEm,
-                AtualizadoEm = result.AtualizadoEm
+                Id = entity.Id,
+                Titulo = entity.Titulo,
+                Ativo = entity.Ativo,
+                CriadoEm = entity.CriadoEm,
+                AtualizadoEm = entity.AtualizadoEm
             });
         }
     }

@@ -1,10 +1,11 @@
-﻿using Bernhoeft.GRT.Teste.Domain.Interfaces.Repositories;
+﻿using Bernhoeft.GRT.Core.Enums;
 using Bernhoeft.GRT.Core.Interfaces.Results;
 using Bernhoeft.GRT.Core.Models;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Responses.Commands.v1;
+using Bernhoeft.GRT.Teste.Domain.Interfaces.Repositories;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 {
@@ -17,17 +18,19 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 
         public async Task<IOperationResult<DeletarAvisoResponse>> Handle(DeletarAvisoRequest request, CancellationToken cancellationToken)
         {
-            var result = await _avisoRepository.CadastrarAsync(request.Titulo, request.Mensagem, request.Ativo, cancellationToken);
-            if (result != null)
+            var entity = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.Default);
+            if (entity == null)
                 return OperationResult<DeletarAvisoResponse>.ReturnNoContent();
+
+            await _avisoRepository.DeletarAsync(entity, cancellationToken);
 
             return OperationResult<DeletarAvisoResponse>.ReturnOk(new DeletarAvisoResponse
             {
-                Id = result.Id,
-                Titulo = result.Titulo,
-                Ativo = result.Ativo,
-                CriadoEm = result.CriadoEm,
-                AtualizadoEm = result.AtualizadoEm
+                Id = entity.Id,
+                Titulo = entity.Titulo,
+                Ativo = entity.Ativo,
+                CriadoEm = entity.CriadoEm,
+                AtualizadoEm = entity.AtualizadoEm
             });
         }
     }
