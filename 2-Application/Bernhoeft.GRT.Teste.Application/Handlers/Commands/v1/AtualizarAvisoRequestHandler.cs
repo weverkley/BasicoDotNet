@@ -35,6 +35,7 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
                 Id = entity.Id,
                 Titulo = entity.Titulo,
                 Ativo = entity.Ativo,
+                Mensagem = entity.Mensagem,
                 CriadoEm = entity.CriadoEm,
                 AtualizadoEm = entity.AtualizadoEm
             });
