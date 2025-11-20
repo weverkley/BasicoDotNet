@@ -17,8 +17,8 @@ namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Mappings
             builder.Property(x => x.Titulo).HasColumnName(@"titulo").HasColumnType("varchar(50)").IsRequired().IsUnicode(false).HasMaxLength(50);
             builder.Property(x => x.Mensagem).HasColumnName(@"mensagem").HasColumnType("text(2147483647)").IsRequired().IsUnicode(false).HasMaxLength(2147483647);
             builder.Property(x => x.CriadoEm).HasColumnName(@"criado_em").HasColumnType("date").IsRequired().IsUnicode(false).HasMaxLength(2147483647);
-            builder.Property(x => x.AtualizadoEm).HasColumnName(@"atualizado_em").HasColumnType("date").IsRequired();
-            builder.Property(x => x.DeletadoEm).HasColumnName(@"deletado_em").HasColumnType("date").IsRequired();
+            builder.Property(x => x.AtualizadoEm).HasColumnName(@"atualizado_em").HasColumnType("date").IsRequired(false);
+            builder.Property(x => x.DeletadoEm).HasColumnName(@"deletado_em").HasColumnType("date").IsRequired(false);
 
             InitializePartial(builder);
         }

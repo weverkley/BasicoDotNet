@@ -51,7 +51,7 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         /// <response code="200">Sucesso.</response>
         /// <response code="400">Dados Inválidos.</response>
         /// <response code="404">Aviso Não Encontrado.</response>
-        [HttpGet]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<CadastrarAvisoResponse>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
