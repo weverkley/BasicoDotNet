@@ -26,8 +26,8 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAvisoResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<object> GetAviso([FromModel] GetAvisoRequest request, CancellationToken cancellationToken)
-            => await Mediator.Send(request, cancellationToken);
+        public async Task<object> GetAviso([FromRoute] int id, CancellationToken cancellationToken)
+            => await Mediator.Send(new GetAvisoRequest { Id = id }, cancellationToken);
 
         /// <summary>
         /// Retorna Todos os Avisos Cadastrados para Tela de Edição.
@@ -70,8 +70,11 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<AtualizarAvisoResponse>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<object> AtualizarAviso([FromModel] AtualizarAvisoRequest request, CancellationToken cancellationToken)
-            => await Mediator.Send(request, cancellationToken);
+        public async Task<object> AtualizarAviso([FromRoute] int id, [FromBody] AtualizarAvisoRequest request, CancellationToken cancellationToken)
+        {
+            request.Id = id;
+            return await Mediator.Send(request, cancellationToken);
+        }
 
         /// <summary>
         /// Deletar um Aviso.
@@ -85,7 +88,7 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<AtualizarAvisoResponse>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<object> AtualizarAviso([FromModel] DeletarAvisoRequest request, CancellationToken cancellationToken)
-            => await Mediator.Send(request, cancellationToken);
+        public async Task<object> AtualizarAviso([FromRoute] int id, CancellationToken cancellationToken)
+            => await Mediator.Send(new DeletarAvisoRequest { Id = id }, cancellationToken);
     }
 }

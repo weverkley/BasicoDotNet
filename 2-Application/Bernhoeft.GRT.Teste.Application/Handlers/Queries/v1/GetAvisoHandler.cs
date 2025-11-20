@@ -18,17 +18,17 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 
         public async Task<IOperationResult<GetAvisoResponse>> Handle(GetAvisoRequest request, CancellationToken cancellationToken)
         {
-            var result = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.NoTracking, cancellationToken);
-            if (result != null)
+            var entity = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.NoTracking, cancellationToken);
+            if (entity == null)
                 return OperationResult<GetAvisoResponse>.ReturnNoContent();
 
             return OperationResult<GetAvisoResponse>.ReturnOk(new GetAvisoResponse
             {
                 Id = request.Id,
-                Titulo = result.Titulo,
-                Ativo = result.Ativo,
-                CriadoEm = result.CriadoEm,
-                AtualizadoEm = result.AtualizadoEm
+                Titulo = entity.Titulo,
+                Ativo = entity.Ativo,
+                CriadoEm = entity.CriadoEm,
+                AtualizadoEm = entity.AtualizadoEm
             });
         }
     }

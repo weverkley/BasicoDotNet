@@ -15,6 +15,7 @@ namespace Bernhoeft.GRT.Teste.Application.Responses.Commands.v1
         {
             Id = entity.Id,
             Ativo = entity.Ativo,
+            Mensagem = entity.Mensagem,
             Titulo = entity.Titulo,
             CriadoEm = entity.CriadoEm,
             AtualizadoEm = entity.AtualizadoEm
