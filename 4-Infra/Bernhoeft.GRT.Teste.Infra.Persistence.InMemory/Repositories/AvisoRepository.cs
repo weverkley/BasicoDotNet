@@ -37,8 +37,8 @@ namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Repositories
                 Ativo = Ativo,
                 Titulo = Titulo,
                 Mensagem = Mensagem,
-                CriadoEm = DateTime.Now,
-                AtualizadoEm = DateTime.Now
+                CriadoEm = DateTime.UtcNow,
+                AtualizadoEm = DateTime.UtcNow
             };
 
             var data = await AddAsync(entity, cancellationToken);
@@ -50,6 +50,8 @@ namespace Bernhoeft.GRT.Teste.Infra.Persistence.InMemory.Repositories
 
         public async Task<AvisoEntity> AtualizarAsync(AvisoEntity entity, CancellationToken cancellationToken)
         {
+            entity.AtualizadoEm = DateTime.UtcNow;
+
             var data = Update(entity);
 
             await _context.SaveChangesAsync(cancellationToken);
