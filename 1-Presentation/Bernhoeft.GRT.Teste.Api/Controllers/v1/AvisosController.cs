@@ -66,7 +66,7 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         /// <response code="200">Sucesso.</response>
         /// <response code="400">Dados Inválidos.</response>
         /// <response code="404">Aviso Não Encontrado.</response>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<AtualizarAvisoResponse>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -81,7 +81,7 @@ namespace Bernhoeft.GRT.Teste.Api.Controllers.v1
         /// <response code="200">Sucesso.</response>
         /// <response code="400">Dados Inválidos.</response>
         /// <response code="404">Aviso Não Encontrado.</response>
-        [HttpPut]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IDocumentationRestResult<AtualizarAvisoResponse>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
