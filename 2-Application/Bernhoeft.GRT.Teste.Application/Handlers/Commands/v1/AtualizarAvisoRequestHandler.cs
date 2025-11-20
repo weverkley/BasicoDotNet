@@ -1,11 +1,12 @@
-﻿using Bernhoeft.GRT.Teste.Domain.Interfaces.Repositories;
+﻿using Bernhoeft.GRT.Core.Enums;
 using Bernhoeft.GRT.Core.Interfaces.Results;
 using Bernhoeft.GRT.Core.Models;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Bernhoeft.GRT.Teste.Application.Requests.Commands.v1;
 using Bernhoeft.GRT.Teste.Application.Responses.Commands.v1;
-using Bernhoeft.GRT.Core.Enums;
+using Bernhoeft.GRT.Teste.Application.Responses.Queries.v1;
+using Bernhoeft.GRT.Teste.Domain.Interfaces.Repositories;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 {
@@ -18,6 +19,10 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 
         public async Task<IOperationResult<AtualizarAvisoResponse>> Handle(AtualizarAvisoRequest request, CancellationToken cancellationToken)
         {
+            if (request.Id <= 0)
+                return OperationResult<AtualizarAvisoResponse>.ReturnBadRequest()
+                    .AddMessage("O Id do aviso é obrigatório e deve ser maior que zero.");
+
             var entity = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.Default);
             if (entity == null)
                 return OperationResult<AtualizarAvisoResponse>.ReturnNoContent();

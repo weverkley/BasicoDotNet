@@ -18,6 +18,10 @@ namespace Bernhoeft.GRT.Teste.Application.Handlers.Queries.v1
 
         public async Task<IOperationResult<GetAvisoResponse>> Handle(GetAvisoRequest request, CancellationToken cancellationToken)
         {
+            if (request.Id <= 0)
+                return OperationResult<GetAvisoResponse>.ReturnBadRequest()
+                    .AddMessage("O Id do aviso é obrigatório e deve ser maior que zero.");
+
             var entity = await _avisoRepository.ObterAvisoPorIdAsync(request.Id, TrackingBehavior.NoTracking, cancellationToken);
             if (entity == null)
                 return OperationResult<GetAvisoResponse>.ReturnNoContent();
